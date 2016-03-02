@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="hibernate.Usuario" table="usuario" catalog="bdkeep" optimistic-lock="version">
+        <id name="login" type="string">
+            <column name="login" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="pass" type="string">
+            <column name="pass" length="40" not-null="true" />
+        </property>
+        <set name="keeps" table="keep" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="login" length="20" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.Keep" />
+        </set>
+    </class>
+</hibernate-mapping>
